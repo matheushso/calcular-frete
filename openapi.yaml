@@ -1,0 +1,84 @@
+openapi: 3.0.0
+info:
+  title: Documentação da API de Cálculo de Frete
+  version: "1.0.0"
+paths:
+  /v1/consulta-endereco:
+    post:
+      tags:
+        - Frete
+      summary: Calcula o valor do frete para um determinado CEP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnderecoRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FreteEndereco'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErroResponse'
+components:
+  schemas:
+    EnderecoRequest:
+      type: object
+      properties:
+        cep:
+          type: string
+          description: CEP para o qual se deseja calcular o frete.
+          example: 01001-000
+          pattern: ^\d{5}-?\d{3}$
+      required:
+        - cep
+    ErroResponse:
+      type: object
+      properties:
+        mensagem:
+          type: string
+          description: Mensagem de erro.
+          example: O CEP informado está em formato inválido.
+        codigo:
+          type: integer
+          description: Código HTTP de erro.
+          example: 400
+    FreteEndereco:
+      type: object
+      properties:
+        cep:
+          type: string
+          description: CEP da localização.
+          example: 01001-000
+        rua:
+          type: string
+          description: Nome da rua.
+          example: Praça da Sé
+        complemento:
+          type: string
+          description: Complemento do endereço.
+          example: lado ímpar
+        bairro:
+          type: string
+          description: Nome do bairro.
+          example: Sé
+        cidade:
+          type: string
+          description: Nome da cidade.
+          example: São Paulo
+        estado:
+          type: string
+          description: Sigla do estado.
+          example: SP
+        frete:
+          type: number
+          format: double
+          description: Valor do frete para o CEP informado.
+          example: 7.85
