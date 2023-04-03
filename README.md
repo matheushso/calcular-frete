@@ -1,4 +1,4 @@
-# 💻 Projeto teste técnico de Java com Spring [API REST] Calcular Frete
+# 💻 Projeto teste técnico de Java com Spring [API REST]   Calcular Frete
 
 # ✔️ Tecnologias utilizadas
 - Java 11
